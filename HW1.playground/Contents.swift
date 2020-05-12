@@ -3,6 +3,30 @@
 import UIKit
 import PlaygroundSupport
 
+enum Gender : String {
+    case Male = "Male"
+    case Female = "Female"
+}
+
+class Person {
+    var firstName = "First"
+    var lastName = "Last"
+    var whereFrom = "Anywhere"  // this is just a free String - can be city, state, both, etc.
+    var gender : Gender = .Male
+}
+
+enum DukeRole : String {
+    case Student = "Student"
+    case Professor = "Professor"
+    case TA = "Teaching Assistant"
+}
+
+enum DukeProgram : String {
+    case Undergrad = "Undergrad"
+    case Grad = "Grad"
+    case NA = "Not Applicable"
+}
+
 // You can add code here
 
 class HW1ViewController : UIViewController {
