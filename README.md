@@ -3,7 +3,7 @@ This is the project you will use for all four of your ECE564 homework assignment
 
 ## HW1
 
-This is a test.
+TODO: add description here.
 
 ## HW2
 add text here
