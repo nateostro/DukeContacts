@@ -3,7 +3,7 @@ This is the project you will use for all four of your ECE564 homework assignment
 
 ## HW1
 
-TODO: add description here.
+I also placed Gender under the Person class, as this enumeration applies to all Person objects, and I placed DukeRole and DukeProgram under the DukePerson class, as these enumerations will only apply to Duke People. 
 
 ## HW2
 add text here
