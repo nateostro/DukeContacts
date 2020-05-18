@@ -124,9 +124,9 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
         
         // Set Up All Buttons
         setupAddUpdateButton(addUpdateButton)
-        //addUpdateButton.addTarget(self, action: #selector(self.addUpdateButtonTapped(_:)), for: .touchUpInside)
+        addUpdateButton.addTarget(self, action: #selector(self.addUpdateButtonTapped(_:)), for: .touchUpInside)
         setupFindButton(findButton)
-        //findButton.addTarget(self, action: #selector(self.findButtonTapped(_:)), for: .touchUpInside)
+        findButton.addTarget(self, action: #selector(self.findButtonTapped(_:)), for: .touchUpInside)
 
     }
 
@@ -333,4 +333,3 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
 // Don't change the following line - it is what allowsthe view controller to show in the Live View window
 PlaygroundPage.current.liveView = HW1ViewController()
 PlaygroundPage.current.needsIndefiniteExecution = true
-
