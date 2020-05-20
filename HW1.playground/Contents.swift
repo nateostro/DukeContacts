@@ -14,6 +14,7 @@ class Person : CustomStringConvertible {
         case Male
         case Female
         case NonBinary
+        case Unspecified
     }
     init() {}
     init(firstName: String, lastName: String, gender: Gender, whereFrom: String) {
@@ -23,7 +24,10 @@ class Person : CustomStringConvertible {
         self.whereFrom = whereFrom
     }
     var description: String {
-         return "\(firstName) \(lastName) is from \(whereFrom)."
+        // Because first name and last name are required by the add function, both are assumed to not be empty.
+        // This description safely handles whereFrom and Gender because they are not required by my modified creation of a new person, thus incorporating intentionally incomplete information.
+        return "\(firstName) \(lastName) is from "
+        + (whereFrom != "" ? "\(whereFrom)." : "an unknown place.")
     }
 }
 
@@ -31,12 +35,14 @@ class DukePerson : Person {
     enum DukeProgram : String {
         case Undergrad
         case Grad
-        case NA = "Not Applicable"
+        case NA
+        case Unspecified
     }
     enum DukeRole : String {
         case Student
         case Professor
         case TA
+        case Unspecified
     }
     var dukeRole : DukeRole = .Student
     var dukeProgram : DukeProgram = .NA
@@ -55,10 +61,13 @@ class DukePerson : Person {
             genderDescription = " She is"
         case .Male:
             genderDescription = " He is"
-        case .NonBinary:
+        default:
             genderDescription = " They are"
         }
-        return super.description + genderDescription + " a " + dukeRole.rawValue
+        // This description safely handles unspecified roles and makes the description output accurate no matter the input.
+        return (super.description
+                + genderDescription
+                + (dukeRole.rawValue == "Unspecified" ? " at Duke in an unspecified role." : " a " + dukeRole.rawValue + "."))
     }
 }
 
@@ -80,7 +89,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     let firstNameLabel = UILabel()
     let lastNameLabel = UILabel()
     let whereFromLabel = UILabel()
-    let shownDescription = UILabel()
+    let shownDescription = UITextView()
     
     let firstNameField = UITextField()
     let lastNameField = UITextField()
@@ -91,20 +100,18 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     let roleControl = UISegmentedControl(items:
         ["Professor", "Student", "TA"])
     let programControl = UISegmentedControl(items:
-        ["Undergrad", "Grad", "TA"])
+        ["Undergrad", "Grad", "NA"])
     
     let addUpdateButton = UIButton(type: .system)
     let findButton = UIButton(type:
         .system)
     
-    var thisPerson : DukePerson = DukePerson()
-
     // MARK: All Subview Setup Functions Called
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set Up All Labels
+        // Sets Up All Labels
         setupHwLabel(hwTitle)
         setupDukeLookupTitle(dukeLookupTitle)
         setupFirstNameLabel(firstNameLabel)
@@ -112,17 +119,17 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
         setupWhereFromLabel(whereFromLabel)
         setupShownDescripton(shownDescription)
         
-        // Set Up All Text Fields
+        // Sets Up All Text Fields
         setupFirstNameField(firstNameField)
         setupLastNameField(lastNameField)
         setupWhereFromField(whereFromField)
         
-        // Set Up All Controls
+        // Sets Up All Controls
         setupGenderControl(genderControl)
         setupRoleControl(roleControl)
         setupProgramControl(programControl)
         
-        // Set Up All Buttons
+        // Sets Up All Buttons
         setupAddUpdateButton(addUpdateButton)
         addUpdateButton.addTarget(self, action: #selector(self.addUpdateButtonTapped(_:)), for: .touchUpInside)
         setupFindButton(findButton)
@@ -145,7 +152,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // Title Subview Setup Function
     
     func setupDukeLookupTitle(_ dukeLookupTitle: UILabel){
-        dukeLookupTitle.frame = CGRect(x: 0, y: 50, width: 240, height: 41)
+        dukeLookupTitle.frame = CGRect(x: 0, y: 45, width: 240, height: 41)
         dukeLookupTitle.center.x = view.center.x
         dukeLookupTitle.text = "Duke Lookup"
         dukeLookupTitle.font = UIFont.boldSystemFont(ofSize: 40.0)
@@ -156,7 +163,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // FirstNameLabel Subview Setup Function
     
     func setupFirstNameLabel(_ firstNameLabel: UILabel){
-        firstNameLabel.frame = CGRect(x: 40, y: 142, width: 88, height: 21)
+        firstNameLabel.frame = CGRect(x: 40, y: 120, width: 88, height: 21)
         firstNameLabel.text = "First Name:"
         firstNameLabel.textColor = .black
         view.addSubview(firstNameLabel)
@@ -165,7 +172,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // FirstNameField Subview Setup Function
     
     func setupFirstNameField(_ firstNameField: UITextField){
-        firstNameField.frame = CGRect(x: 200, y: 136, width: 144, height: 34)
+        firstNameField.frame = CGRect(x: 200, y: 114, width: 144, height: 34)
         firstNameField.text = ""
         firstNameField.textColor = .black
         firstNameField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -175,7 +182,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // LastNameLabel Subview Setup Function
         
     func setupLastNameLabel(_ lastNameLabel: UILabel){
-        lastNameLabel.frame = CGRect(x: 40, y: 188, width: 87, height: 21)
+        lastNameLabel.frame = CGRect(x: 40, y: 166, width: 87, height: 21)
         lastNameLabel.text = "Last Name:"
         lastNameLabel.textColor = .black
         view.addSubview(lastNameLabel)
@@ -184,7 +191,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // LastNameField Subview Setup Function
        
     func setupLastNameField(_ lastNameField: UITextField){
-        lastNameField.frame = CGRect(x: 200, y: 183, width: 144, height: 34)
+        lastNameField.frame = CGRect(x: 200, y: 160, width: 144, height: 34)
         lastNameField.text = ""
         lastNameField.textColor = .black
         lastNameField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -194,7 +201,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // WhereFromLabel Subview Setup Function
     
     func setupWhereFromLabel(_ whereFromLabel: UILabel){
-        whereFromLabel.frame = CGRect(x: 40, y: 238, width: 44, height: 21)
+        whereFromLabel.frame = CGRect(x: 40, y: 216, width: 44, height: 21)
         whereFromLabel.text = "From:"
         whereFromLabel.textColor = .black
         view.addSubview(whereFromLabel)
@@ -203,7 +210,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // WhereFromField Subview Setup Function
     
     func setupWhereFromField(_ whereFromField: UITextField){
-        whereFromField.frame = CGRect(x: 200, y: 231, width: 144, height: 34)
+        whereFromField.frame = CGRect(x: 200, y: 209, width: 144, height: 34)
         whereFromField.text = ""
         whereFromField.textColor = .black
         whereFromField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -213,34 +220,31 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // GenderControl Subview Setup Function
     
     func setupGenderControl(_ genderControl: UISegmentedControl){
-        genderControl.frame = CGRect(x: 40, y: 304, width: 304, height: 32)
+        genderControl.frame = CGRect(x: 40, y: 267, width: 304, height: 32)
         genderControl.layer.cornerRadius = 5
         view.addSubview(genderControl)
-        genderControl.selectedSegmentIndex = 0
     }
 
     // RoleControl Subview Setup Function
         
     func setupRoleControl(_ roleControl: UISegmentedControl){
-        roleControl.frame = CGRect(x: 40, y: 359, width: 304, height: 32)
+        roleControl.frame = CGRect(x: 40, y: 317, width: 304, height: 32)
         roleControl.layer.cornerRadius = 5
         view.addSubview(roleControl)
-        roleControl.selectedSegmentIndex = 0
     }
         
     // ProgramControl Subview Setup Function
         
     func setupProgramControl(_ programControl: UISegmentedControl){
-        programControl.frame = CGRect(x: 40, y: 414, width: 304, height: 32)
+        programControl.frame = CGRect(x: 40, y: 367, width: 304, height: 32)
         programControl.layer.cornerRadius = 5
         view.addSubview(programControl)
-        programControl.selectedSegmentIndex = 0
     }
         
     // AddUpdateButton Subview Setup Function
     
     func setupAddUpdateButton(_ addUpdateButton: UIButton){
-        addUpdateButton.frame = CGRect.init(x: 40, y: 478, width: 144, height: 40)
+        addUpdateButton.frame = CGRect.init(x: 40, y: 426, width: 144, height: 40)
         addUpdateButton.backgroundColor = .blue
         addUpdateButton.layer.cornerRadius = 5
         addUpdateButton.tintColor = .blue
@@ -252,7 +256,7 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
     // FindButton Subview Setup Function
         
     func setupFindButton(_ findButton: UIButton){
-        findButton.frame = CGRect.init(x: 200, y: 478, width: 144, height: 40)
+        findButton.frame = CGRect.init(x: 200, y: 426, width: 144, height: 40)
         findButton.backgroundColor = .blue
         findButton.layer.cornerRadius = 5
         findButton.tintColor = .blue
@@ -263,9 +267,15 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
         
     // ShownDescription Subview Setup Function
     
-    func setupShownDescripton(_ shownDescription: UILabel){
-        shownDescription.numberOfLines = 0
-        findButton.frame = CGRect.init(x: 40, y: 530, width: 304, height: 60)
+    func setupShownDescripton(_ shownDescription: UITextView){
+        shownDescription.isEditable = false
+        shownDescription.textAlignment = NSTextAlignment.left
+        shownDescription.frame = CGRect(x: 40, y: 490, width: 303, height: 140)
+        shownDescription.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 255)
+        shownDescription.layer.borderWidth = 2
+        shownDescription.layer.cornerRadius = 5
+        shownDescription.text = "Lookup results will display here."
+        shownDescription.textColor = .black
         view.addSubview(shownDescription)
     }
         
@@ -274,62 +284,109 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
 
     @objc func addUpdateButtonTapped(_ sender: UIButton){
         
-        // Create new DukePerson from user input
-        let person = DukePerson(
-        firstName: firstNameField.text ?? "",
-        lastName: lastNameField.text ?? "",
-        gender: Person.Gender(rawValue: genderControl.titleForSegment(at: genderControl.selectedSegmentIndex)!)!,
-        whereFrom: whereFromField.text ?? "",
-        role: DukePerson.DukeRole(rawValue:
-            roleControl.titleForSegment(at: roleControl.selectedSegmentIndex)!)!,
-        program: DukePerson.DukeProgram(rawValue:
-            programControl.titleForSegment(at: programControl.selectedSegmentIndex)!)!)
+        // Finds all people matching any and all user-provided attributes.
+            // If a matching DukePerson object exists, the first instance of DukePerson matching first name and last name in dukePeople is modified to match the current user input (rather than being taken out of the array and re-inserted).
+            // If none exist, the function adds the DukePerson created by user input to the dukePeople array.
+        // Then, updates shownDescription
         
-        // Find all people matching user-provided first and last name. If none, initiate new DukePerson and add to Array.
-        // Then, update shownDescription
-        if dukePeople.filter({$0.firstName == person.firstName && $0.lastName == person.lastName}).isEmpty {
+        let person = getCurrentPerson()
+        
+        if person.firstName == "" || person.lastName == "" {
+            shownDescription.text = "Please enter a valid first and last name to add a person."
+        } else if let foundIndex = dukePeople.firstIndex(where: {$0.firstName == person.firstName && $0.lastName == person.lastName}){
+            self.dukePeople.remove(at: foundIndex)
+            self.dukePeople.append(person)
+            shownDescription.text = "Person attributes changed. \n" + person.description
+        } else {
             self.dukePeople.append(person)
             shownDescription.text = "New person added to Lookup. \n" + person.description
-            print("New person added to Lookup. \n" + person.description)
-        } else {
-            let foundIndex = dukePeople.firstIndex(where: {$0.firstName == person.firstName && $0.lastName == person.lastName})
-            self.dukePeople[foundIndex!] = person
-            shownDescription.text = "Person attributes changed. \n" + person.description
-            print("Person attributes changed. \n" + person.description)
         }
     }
     
+
     @objc func findButtonTapped(_ sender: UIButton){
         
-        // Create new DukePerson from user input
-        let person = DukePerson(
-            firstName: firstNameField.text ?? "",
-            lastName: lastNameField.text ?? "",
-            gender: Person.Gender(rawValue: genderControl.titleForSegment(at: genderControl.selectedSegmentIndex)!)!,
-            whereFrom: whereFromField.text ?? "",
-            role: DukePerson.DukeRole(rawValue:
-                roleControl.titleForSegment(at: roleControl.selectedSegmentIndex)!)!,
-            program: DukePerson.DukeProgram(rawValue:
-                programControl.titleForSegment(at: programControl.selectedSegmentIndex)!)!)
-        
-        // Find all people matching user-provided first and last name
-        let searchResults = dukePeople.filter({$0.firstName == person.firstName && $0.lastName == person.lastName})
-        
-        // Update shownDescription
-        if searchResults.isEmpty {
-            shownDescription.text = "Error: No person found by that name"
-            print("Error: No person found by that name")
-        } else {
-            var totalDescription = ""
-            for dukePerson in searchResults {
-                totalDescription += (dukePerson.description + " \n\n")
-            }
-            shownDescription.text = totalDescription
-            print(totalDescription)
+        // Finds all people matching current DukePerson specified by user.
+        // If no people are found, stops and lets the user know.
+        let searchResults = searchDukePeople()
+        if searchResults!.isEmpty {
+            shownDescription.text = "Error: No person found with those attributes"
+            return
         }
+        
+        // Updates shownDescription, adding each person matching the query
+        var totalDescription = ""
+        for dukePerson in searchResults! {
+            totalDescription += (dukePerson.description + " \n\n")
+        }
+        shownDescription.text = totalDescription
+        
+    }
+    
+    func getCurrentPerson() -> DukePerson {
+        // Assigns each user input element to a variable. If none is found, it safely assigns each to "" or .Unspecified.
+        let firstName = firstNameField.text ?? ""
+        let lastName = lastNameField.text ?? ""
+        let gender =
+            genderControl.selectedSegmentIndex != UISegmentedControl.noSegment ?
+                Person.Gender(rawValue: genderControl.titleForSegment(at: genderControl.selectedSegmentIndex)!)! :
+                Person.Gender.Unspecified
+        let whereFrom = whereFromField.text ?? ""
+        let role =
+            roleControl.selectedSegmentIndex != UISegmentedControl.noSegment ?
+                DukePerson.DukeRole(rawValue: roleControl.titleForSegment(at: roleControl.selectedSegmentIndex)!)! :
+                DukePerson.DukeRole.Unspecified
+        let program =
+            programControl.selectedSegmentIndex != UISegmentedControl.noSegment ?
+                DukePerson.DukeProgram(rawValue: programControl.titleForSegment(at: programControl.selectedSegmentIndex)!)! :
+                DukePerson.DukeProgram.Unspecified
+        return DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, role: role, program: program)
+    }
+        
+    func searchDukePeople() -> Array<DukePerson>?{
+        
+        // Creates new DukePerson from user input
+        let person = getCurrentPerson()
+        
+        // Creates a filteredResults array and adds all Duke People.
+        var filteredResults : Array<DukePerson> = dukePeople
+        
+        // Filters for each search criteria that is neither empty nor unspecified. (Not necessarily the most concise solution I found, but by far the most readable).
+        if person.firstName != "" {
+            filteredResults = filteredResults.filter({
+                $0.firstName == person.firstName
+            })
+        }
+        if person.lastName != "" {
+            filteredResults = filteredResults.filter({
+                $0.lastName == person.lastName
+            })
+        }
+        if person.whereFrom != "" {
+            filteredResults = filteredResults.filter({
+                $0.whereFrom == person.whereFrom || $0.whereFrom == ""
+            })
+        }
+        if person.gender != Person.Gender.Unspecified {
+            filteredResults = filteredResults.filter({
+                $0.gender == person.gender || $0.gender == .Unspecified
+            })
+        }
+        if person.dukeRole != DukePerson.DukeRole.Unspecified {
+            filteredResults = filteredResults.filter({
+                $0.dukeRole == person.dukeRole || $0.dukeRole == .Unspecified
+            })
+        }
+        if person.dukeProgram != DukePerson.DukeProgram.Unspecified {
+            filteredResults = filteredResults.filter({
+                $0.dukeProgram == person.dukeProgram || $0.dukeProgram == .Unspecified
+            })
+        }
+        
+        return filteredResults
     }
      
 }
-// Don't change the following line - it is what allowsthe view controller to show in the Live View window
+
 PlaygroundPage.current.liveView = HW1ViewController()
 PlaygroundPage.current.needsIndefiniteExecution = true
