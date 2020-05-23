@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  AddView.swift
 //  ECE564_HW
 //
 //  Created by Nathan Ostrowski on 5/22/20.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct AddView: View {
     var body: some View {
-        Text("Hello, World!")
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct MainView_Previews: PreviewProvider {
+struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        AddView()
     }
 }

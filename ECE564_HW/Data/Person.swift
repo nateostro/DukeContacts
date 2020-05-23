@@ -14,6 +14,7 @@ class Person : CustomStringConvertible {
     var firstName : String = ""
     var lastName : String = ""
     var whereFrom : String = ""
+    var profPicName : String = "defaultProfPic"
     var gender : Gender = .NonBinary
     enum Gender : String {
         case Male
@@ -22,11 +23,12 @@ class Person : CustomStringConvertible {
         case Unspecified
     }
     init() {}
-    init(firstName: String, lastName: String, gender: Gender, whereFrom: String) {
+    init(firstName: String, lastName: String, gender: Gender, whereFrom: String, profPicName: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.gender = gender
         self.whereFrom = whereFrom
+        self.profPicName = profPicName
     }
     var description: String {
         // Because first name and last name are required by the add function, both are assumed to not be empty.
@@ -54,10 +56,10 @@ class DukePerson : Person {
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: Gender, whereFrom: String, role: DukeRole, program: DukeProgram){
+    init(firstName: String, lastName: String, gender: Gender, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram){
         self.dukeRole = role
         self.dukeProgram = program
-        super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom)
+        super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
     }
     override var description: String {
         var genderDescription : String
@@ -74,4 +76,13 @@ class DukePerson : Person {
                 + genderDescription
                 + (dukeRole.rawValue == "Unspecified" ? " at Duke in an unspecified role." : " a " + dukeRole.rawValue + "."))
     }
+}
+
+class DukePeople: ObservableObject {
+    // This
+    @Published var dukePeopleArray : [DukePerson] = [
+        DukePerson(firstName: "Richard", lastName: "Telford", gender: .Male, whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: .Professor, program: .NA),
+        DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: .Female, whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: .TA, program: .Grad),
+        DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: .Male, whereFrom: "Charlotte, NC", profPicName: "defaultProfPic", role: .Student, program: .Undergrad)
+    ]
 }
