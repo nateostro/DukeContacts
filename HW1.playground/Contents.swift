@@ -354,17 +354,17 @@ class HW1ViewController : UIViewController, UITextFieldDelegate {
         // Filters for each search criteria that is neither empty nor unspecified. (Not necessarily the most concise solution I found, but by far the most readable).
         if person.firstName != "" {
             filteredResults = filteredResults.filter({
-                $0.firstName == person.firstName
+                $0.firstName == person.firstName || $0.firstName.contains(person.whereFrom)
             })
         }
         if person.lastName != "" {
             filteredResults = filteredResults.filter({
-                $0.lastName == person.lastName
+                $0.lastName == person.lastName || $0.lastName.contains(person.whereFrom)
             })
         }
         if person.whereFrom != "" {
             filteredResults = filteredResults.filter({
-                $0.whereFrom == person.whereFrom || $0.whereFrom == ""
+                $0.whereFrom == person.whereFrom || $0.whereFrom == "" || $0.whereFrom.contains(person.whereFrom)
             })
         }
         if person.gender != Person.Gender.Unspecified {

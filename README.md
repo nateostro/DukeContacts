@@ -23,7 +23,9 @@ I placed each of the UI elements into setup functions to make the initialization
 
 
 ## HW2
-add text here
+
+Converted the project to SwiftUI
+
 
 ## HW3
 add text here
