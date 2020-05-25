@@ -35,19 +35,23 @@ class Person : CustomStringConvertible, Identifiable {
         // Because first name and last name are required by the add function, both are assumed to not be empty.
         // This description safely handles whereFrom and Gender because they are not required by my modified creation of a new person, thus incorporating intentionally incomplete information.
         return "\(firstName) \(lastName) is from "
-        + (whereFrom != "" ? "\(whereFrom)." : "an unknown place.")
+        + (whereFrom != "" ? "\(whereFrom)" : "an unknown place")
     }
 }
 
 class DukePerson : Person {
-    var dukeRole : String = "Unspecified"
-    var dukeProgram : String = "Unspecified"
+    var dukeRole : String = ""
+    var dukeProgram : String = ""
+    var languages: String = ""
+    var hobbies : String = ""
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: String, program: String){
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: String, program: String, languages: String, hobbies: String){
         self.dukeRole = role
         self.dukeProgram = program
+        self.languages = languages
+        self.hobbies = hobbies
         super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
     }
     override var description: String {
@@ -60,7 +64,9 @@ class DukePerson : Person {
             genderDescription = "They are"
         }
         return (super.description
-                + genderDescription
-                + " a " + dukeRole)
+                + " and is " + (dukeRole != "" ? "at Duke in an unspecified role" : "a \(dukeRole)") + "."
+                + " " + genderDescription + " proficient in " + (languages != "" ? languages : "some languages") + "."
+                + " " + firstName + " enjoys " + (hobbies != "" ? hobbies : "some activities") + "."
+        )
     }
 }

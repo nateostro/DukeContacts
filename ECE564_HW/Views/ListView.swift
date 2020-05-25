@@ -29,7 +29,7 @@ struct ListView: View {
                     self.isAdding.toggle()
                 }, label: {
                     Image(systemName: "plus.circle.fill")
-                    .font(Font.system(.title))
+                        .font(Font.system(.title)).accentColor(.green)
                 })
             )
             .sheet(isPresented: $isAdding, content: {
@@ -63,7 +63,7 @@ struct PersonRow : View {
                 
                 VStack (alignment: .leading) {
                     Text(dukePerson.fullName).font(.headline).padding(.init(top: 0, leading: 0, bottom: 5, trailing: 0))
-                    Text(dukePerson.description).font(.subheadline).lineLimit(nil)
+                    Text(dukePerson.description).fontWeight(.light).lineLimit(nil).font(.subheadline)
                     
                 }
                 .padding(.leading, 8)

@@ -10,14 +10,10 @@ import Foundation
 
 public class DukePeopleModel : ObservableObject {
     @Published var dukePeople : [DukePerson] = [
-        DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: "Prof", program: "N/A"),
-            DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: "TA", program: "Grad"),
-            DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", profPicName: "defaultProfPic", role: "Student", program: "Undergrad")
+        DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: "Professor", program: "N/A", languages: "Swift, C, and C++", hobbies: "Biking, Hiking, Golf"),
+            DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: "TA", program: "Grad", languages: "", hobbies: ""),
+            DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", profPicName: "defaultProfPic", role: "Student", program: "Undergrad", languages: "Swift, C, and Mathematica", hobbies: "Backpacking, Playing Guitar, Reading the News")
     ]
-    
-    func getCurrentPerson(firstName: String?, lastName: String?, whereFrom: String?, gender: String?, profPicName: String?, role: String?, program: String?) -> DukePerson {
-        return DukePerson(firstName: firstName ?? "", lastName: lastName ?? "", gender: gender ?? "", whereFrom: whereFrom ?? "", profPicName: profPicName ?? "defaultProfPic", role: role ?? "", program: program ?? "")
-    }
     
     func searchDukePeople(person: DukePerson) -> Array<DukePerson>?{
                 

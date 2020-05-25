@@ -24,48 +24,96 @@ struct AddView: View {
     @State var gender : String = ""
     @State var role : String = ""
     @State var program : String = ""
+    @State var languages : String = ""
+    @State var hobbies : String = ""
 
     var body: some View {
         
         VStack {
             HStack(alignment: .top) {
-                Text("Add a Person:").font(.largeTitle)
+                Text("New Person:")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.leading, 20)
                 Spacer()
+                Button(action: {
+                    self.isAdding = false
+                }, label: {
+                    Text("Cancel")
+                    .foregroundColor(.white)
+                    .padding(.all, 12)
+                    .background(Color.red)
+                    .cornerRadius(5)
+                }).padding(.trailing, 20)
             }.padding(.bottom, 10)
-            HStack() {
-                Text("First Name:")
+            .padding(.top, 25)
+            
+            HStack(spacing: 16) {
+                Text("First Name:").frame(alignment: .leading)
                 Spacer()
                 TextField("Enter first name", text: $firstName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
             HStack(spacing: 16) {
-                Text("Last Name:")
+                Text("Last Name:").frame(alignment: .leading)
+                Spacer()
                 TextField("Enter last name", text: $lastName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
             HStack(spacing: 16) {
-                Text("Hometown:")
+                Text("Hometown:").frame(alignment: .leading)
+                Spacer()
                 TextField("Enter hometown", text: $whereFrom)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
             HStack(spacing: 16) {
-                Text("Gender:")
+                Text("Gender:").frame(alignment: .leading)
+                Spacer()
                 TextField("Enter gender", text: $gender)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
             HStack(spacing: 16) {
-                Text("Duke Role:")
+                Text("Role:").frame(alignment: .leading)
+                Spacer()
                 TextField("Enter Duke Role", text: $role).textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
             HStack(spacing: 16) {
-                Text("Duke Program:")
+                Text("Program:").frame(alignment: .leading)
+                Spacer()
                 TextField("Enter Duke Program", text: $program)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
+                    .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
+            HStack(spacing: 16) {
+                Text("Languages:").frame(alignment: .leading)
+                Spacer()
+                TextField("Enter CS Languages", text: $languages)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
+            
+            HStack(spacing: 16) {
+                Text("Hobbies:").frame(alignment: .leading)
+                Spacer()
+                TextField("Enter Hobbies", text: $hobbies)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 200, alignment: .trailing)
+            }.padding(.init(top: 2, leading: 20, bottom: 2, trailing: 20))
             
             Button(action: {
                 if self.firstName != "" && self.lastName != ""{
-                    self.didAddPerson(.init(firstName: self.firstName, lastName: self.lastName, gender: self.gender, whereFrom: self.whereFrom, profPicName: "defaultProfPic", role: self.role, program: self.program))
+                    self.didAddPerson(.init(firstName: self.firstName, lastName: self.lastName, gender: self.gender, whereFrom: self.whereFrom, profPicName: "defaultProfPic", role: self.role, program: self.program, languages: self.languages, hobbies: self.hobbies))
                     self.isAdding = false
                 } else {
                     self.insufficientInformationAlert.toggle()
@@ -77,18 +125,10 @@ struct AddView: View {
                 .padding(.all, 12)
                 .background(Color.green)
                 .cornerRadius(5)
+                .frame(width: 300, height: 60, alignment: .center)
+                    .padding(.all, 20)
             })
-            
-            Button(action: {
-                self.isAdding = false
-            }, label: {
-                Text("Cancel")
-                .foregroundColor(.white)
-                .fontWeight(.bold)
-                .padding(.all, 12)
-                .background(Color.red)
-                .cornerRadius(5)
-            })
+        
         }.alert(isPresented: $insufficientInformationAlert){
             .init(title: Text("Insufficient Information"), message: Text("Please enter both a first and last name"))
             }
