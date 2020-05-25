@@ -28,7 +28,7 @@ struct ListView: View {
             .navigationBarItems(trailing: Button(action: {
                     self.isAdding.toggle()
                 }, label: {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "person.crop.circle.fill.badge.plus")
                         .font(Font.system(.title)).accentColor(.green)
                 })
             )
@@ -49,7 +49,7 @@ struct ListView: View {
 }
 
 struct PersonRow : View {
-    var dukePerson : DukePerson
+    @ObservedObject var dukePerson : DukePerson
     
     var body : some View {
         NavigationLink(destination: DetailView(dukePerson: dukePerson)){

@@ -11,6 +11,7 @@ import Foundation
 // MARK: Person and DukePerson Classes
 
 class Person : CustomStringConvertible, Identifiable {
+    
     // In this iteration, added a unique identifier––found that it played nicer with SwiftUI
     var id = UUID()
     var firstName : String = ""
@@ -39,7 +40,12 @@ class Person : CustomStringConvertible, Identifiable {
     }
 }
 
-class DukePerson : Person {
+class DukePerson : Person, NSMutableCopying, ObservableObject {
+    func mutableCopy(with zone: NSZone? = nil) -> Any {
+        var copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: dukeRole, program: dukeProgram, languages: languages, hobbies: hobbies)
+        return copy
+    }
+    
     var dukeRole : String = ""
     var dukeProgram : String = ""
     var languages: String = ""
