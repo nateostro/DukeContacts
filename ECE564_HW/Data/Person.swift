@@ -10,20 +10,21 @@ import Foundation
 
 // MARK: Person and DukePerson Classes
 
-class Person : CustomStringConvertible {
+class Person : CustomStringConvertible, Identifiable {
+    // In this iteration, added a unique identifier––found that it played nicer with SwiftUI
+    var id = UUID()
     var firstName : String = ""
     var lastName : String = ""
+    var fullName : String {
+        get {
+            return firstName + " " + lastName
+        }
+    }
     var whereFrom : String = ""
     var profPicName : String = "defaultProfPic"
-    var gender : Gender = .NonBinary
-    enum Gender : String {
-        case Male
-        case Female
-        case NonBinary
-        case Unspecified
-    }
+    var gender : String = ""
     init() {}
-    init(firstName: String, lastName: String, gender: Gender, whereFrom: String, profPicName: String) {
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.gender = gender
@@ -39,50 +40,27 @@ class Person : CustomStringConvertible {
 }
 
 class DukePerson : Person {
-    enum DukeProgram : String {
-        case Undergrad
-        case Grad
-        case NA
-        case Unspecified
-    }
-    enum DukeRole : String {
-        case Student
-        case Professor
-        case TA
-        case Unspecified
-    }
-    var dukeRole : DukeRole = .Student
-    var dukeProgram : DukeProgram = .NA
+    var dukeRole : String = "Unspecified"
+    var dukeProgram : String = "Unspecified"
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: Gender, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram){
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: String, program: String){
         self.dukeRole = role
         self.dukeProgram = program
         super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
     }
     override var description: String {
         var genderDescription : String
-        switch gender {
-        case .Female:
-            genderDescription = " She is"
-        case .Male:
-            genderDescription = " He is"
-        default:
-            genderDescription = " They are"
+        if gender == "Male" {
+            genderDescription = "He is"
+        } else if gender == "Female" {
+            genderDescription = "She is"
+        } else {
+            genderDescription = "They are"
         }
-        // This description safely handles unspecified roles and makes the description output accurate no matter the input.
         return (super.description
                 + genderDescription
-                + (dukeRole.rawValue == "Unspecified" ? " at Duke in an unspecified role." : " a " + dukeRole.rawValue + "."))
+                + " a " + dukeRole)
     }
-}
-
-class DukePeople: ObservableObject {
-    // This
-    @Published var dukePeopleArray : [DukePerson] = [
-        DukePerson(firstName: "Richard", lastName: "Telford", gender: .Male, whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: .Professor, program: .NA),
-        DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: .Female, whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: .TA, program: .Grad),
-        DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: .Male, whereFrom: "Charlotte, NC", profPicName: "defaultProfPic", role: .Student, program: .Undergrad)
-    ]
 }

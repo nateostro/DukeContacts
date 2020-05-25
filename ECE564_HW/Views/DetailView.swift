@@ -9,13 +9,26 @@
 import SwiftUI
 
 struct DetailView: View {
+    var dukePerson : DukePerson
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .center) {
+            Image(dukePerson.profPicName)
+                .resizable()
+                .clipShape(Circle())
+                .scaledToFill()
+                .overlay(Circle().stroke(Color.black, lineWidth: 2))
+                .frame(width: 70, height: 70)
+            Spacer()
+            
+        }.frame(alignment: .top)
+        
+        
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView()
+        DetailView(dukePerson: DukePerson.init())
     }
 }
