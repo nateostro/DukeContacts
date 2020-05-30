@@ -16,7 +16,8 @@ struct InfoView: View {
     
     var body: some View {
         Form {
-            Section {
+            
+            Section(header: BasicInfoHeader()) {
                 HStack {
                     Text("First Name:").frame(alignment: .leading)
                     Spacer()
@@ -56,28 +57,32 @@ struct InfoView: View {
                         .font(.callout)
                         .disabled(!canEdit)
                     }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
+            }
+            Section(header: DukeInfoHeader()) {
                 HStack(spacing: 16) {
-                    Text("Role:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter Duke Role", text: $dukePerson.dukeRole)
-                    .frame(width: 180, alignment: .trailing)
+                    Picker(selection: $dukePerson.role, label: Text("Role")) {
+                        ForEach(DukePerson.DukeRole.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
                         .foregroundColor((!canEdit ? .gray : .black))
                         .font(.callout)
                         .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                    }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 
-                HStack(spacing: 16) {
-                    Text("Program:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter Duke Program", text: $dukePerson.dukeProgram)
-                    .frame(width: 180, alignment: .trailing)
+                HStack {
+                    Picker(selection: $dukePerson.program, label: Text("Program")) {
+                        ForEach(DukePerson.DukeProgram.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
                         .foregroundColor((!canEdit ? .gray : .black))
                         .font(.callout)
                         .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
-                HStack(spacing: 16) {
+                    }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+            }
+            Section(header: PersonalInfoHeader()) {
+                HStack {
                     Text("Languages:").frame(alignment: .leading)
                     Spacer()
                  TextField("Enter CS Languages", text: $dukePerson.languages)
@@ -98,5 +103,38 @@ struct InfoView: View {
                     }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
             }
         }
+    }
+}
+
+struct BasicInfoHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "person.circle.fill")
+            Text("Basic Info")
+        }
+    }
+}
+
+struct DukeInfoHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "briefcase.fill")
+            Text("Duke Info")
+        }
+    }
+}
+
+struct PersonalInfoHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "star.circle.fill")
+            Text("Personal Info")
+        }
+    }
+}
+
+struct InfoView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

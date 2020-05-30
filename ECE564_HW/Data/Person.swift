@@ -40,22 +40,40 @@ class Person : CustomStringConvertible, Identifiable {
     }
 }
 
-class DukePerson : Person, NSMutableCopying, ObservableObject {
+class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
+    static func == (lhs: DukePerson, rhs: DukePerson) -> Bool {
+        return lhs.description == rhs.description
+    }
+
     func mutableCopy(with zone: NSZone? = nil) -> Any {
-        var copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: dukeRole, program: dukeProgram, languages: languages, hobbies: hobbies)
+        var copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: role, program: program, languages: languages, hobbies: hobbies)
         return copy
     }
     
-    var dukeRole : String = ""
-    var dukeProgram : String = ""
+    enum DukeRole : String, CaseIterable {
+        case Student
+        case TA
+        case Professor
+        case Unspecified
+    }
+    
+    enum DukeProgram : String, CaseIterable {
+        case Undergraduate
+        case Graduate
+        case NA
+        case Unspecified
+    }
+
+    var role : DukeRole = .Unspecified
+    var program : DukeProgram = .Unspecified
     var languages: String = ""
     var hobbies : String = ""
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: String, program: String, languages: String, hobbies: String){
-        self.dukeRole = role
-        self.dukeProgram = program
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram, languages: String, hobbies: String){
+        self.role = role
+        self.program = program
         self.languages = languages
         self.hobbies = hobbies
         super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
@@ -70,7 +88,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject {
             genderDescription = "They are"
         }
         return (super.description
-                + " and is " + (dukeRole != "" ? "at Duke in an unspecified role" : "a \(dukeRole)") + "."
+            + " and is " + (role != .Unspecified ? "at Duke in an unspecified role" : "a \(role)") + "."
                 + " " + genderDescription + " proficient in " + (languages != "" ? languages : "some languages") + "."
                 + " " + firstName + " enjoys " + (hobbies != "" ? hobbies : "some activities") + "."
         )

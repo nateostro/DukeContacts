@@ -18,9 +18,19 @@ struct ListView: View {
         NavigationView {
             // Because this list observes the dukePeople variable contained in dukePeopleModel, it will change whenever that list changes.
             List {
-                Section {
-                    ForEach(dukePeopleModel.dukePeople){ dukePerson in
-                        PersonRow(dukePerson: dukePerson)
+                Section(header: StudentHeader()) {
+                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .Student}){ dukePerson in
+                        PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
+                    }.onDelete(perform: deleteItems(at:))
+                }
+                Section(header: ProfHeader()) {
+                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .Professor}){ dukePerson in
+                        PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
+                    }.onDelete(perform: deleteItems(at:))
+                }
+                Section(header: TAHeader()) {
+                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .TA}){ dukePerson in
+                        PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
                     }.onDelete(perform: deleteItems(at:))
                 }
             }
@@ -49,10 +59,18 @@ struct ListView: View {
 }
 
 struct PersonRow : View {
+    @ObservedObject var dukePeopleModel : DukePeopleModel
     @ObservedObject var dukePerson : DukePerson
+    var thisPersonIndex : Int
     
     var body : some View {
-        NavigationLink(destination: DetailView(dukePerson: dukePerson)){
+        NavigationLink(destination:
+            DetailView(
+                dukePeopleModel: dukePeopleModel,
+                thisPersonIndex: thisPersonIndex,
+                copiedPerson: self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson,
+                editablePerson: self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson)
+            ){
             HStack {
                 Image(dukePerson.profPicName)
                     .resizable()
@@ -63,7 +81,7 @@ struct PersonRow : View {
                 
                 VStack (alignment: .leading) {
                     Text(dukePerson.fullName).font(.headline).padding(.init(top: 0, leading: 0, bottom: 5, trailing: 0))
-                    Text(dukePerson.description).fontWeight(.light).lineLimit(nil).font(.subheadline)
+                    Text(dukePerson.description).fontWeight(.light).lineLimit(nil).font(.system(size: 14))
                     
                 }
                 .padding(.leading, 8)
@@ -72,6 +90,33 @@ struct PersonRow : View {
             }.padding(.init(top: 12, leading: 0, bottom: 12, trailing: 0))
         }
 
+    }
+}
+
+struct StudentHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "s.circle.fill")
+            Text("Students")
+        }
+    }
+}
+
+struct ProfHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "p.circle.fill")
+            Text("Professors")
+        }
+    }
+}
+
+struct TAHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "t.circle.fill")
+            Text("Teaching Assistants")
+        }
     }
 }
 
