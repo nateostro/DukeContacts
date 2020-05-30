@@ -11,13 +11,9 @@ import SwiftUI
 struct AddView: View {
     
     @ObservedObject var dukePeopleModel = DukePeopleModel()
-        
     @Binding var isAdding : Bool
-    
     @State var insufficientInformationAlert = false
-    
     var didAddPerson: (DukePerson) -> ()
-    
     @State var dukePerson : DukePerson = DukePerson()
 
     var body: some View {
