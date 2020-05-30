@@ -60,7 +60,6 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
     enum DukeProgram : String, CaseIterable {
         case Undergraduate
         case Graduate
-        case NA
         case Unspecified
     }
 
@@ -88,7 +87,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
             genderDescription = "They are"
         }
         return (super.description
-            + " and is " + (role != .Unspecified ? "at Duke in an unspecified role" : "a \(role)") + "."
+            + " and is " + (role != .Unspecified ? "a \(role)" : "at Duke in an unspecified role") + "."
                 + " " + genderDescription + " proficient in " + (languages != "" ? languages : "some languages") + "."
                 + " " + firstName + " enjoys " + (hobbies != "" ? hobbies : "some activities") + "."
         )

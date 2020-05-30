@@ -26,6 +26,11 @@ I placed each of the UI elements into setup functions to make the initialization
 
 Converted the project to SwiftUI
 
+Added icon markers throughout, including to the Add Person modal view, the Basic Info section, the Duke Info section, the Personal Info section, the edit button, and each of the person type tabs in the main ListView
+
+Added neutral descriptions that account for an absence of information about a particular person. 
+
+Greyed out text to make clear to the user when elements were editable or not editable.
 
 ## HW3
 add text here

@@ -20,8 +20,6 @@ struct DetailView: View {
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-
-                
                Image(systemName: "photo.fill")
                    .resizable()
                    .clipShape(Circle())
@@ -31,7 +29,6 @@ struct DetailView: View {
                 
                 .frame(alignment: .trailing)
                 .padding(.init(top: 5, leading: 20, bottom: 10, trailing: 20))
-                
             }
     
                
