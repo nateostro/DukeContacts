@@ -32,7 +32,7 @@ struct DetailView: View {
             }
     
                
-            InfoView(dukePerson: editablePerson, canEdit: $isEditing)
+            InfoView(dukePerson: self.editablePerson, canEdit: $isEditing)
                
             if isEditing {
                HStack{
@@ -56,7 +56,7 @@ struct DetailView: View {
            
         }.alert(isPresented: $insufficientInformationAlert){
                .init(title: Text("Insufficient Information"), message: Text("Please enter both a first and last name"))}
-            .navigationBarTitle(Text(editablePerson.fullName), displayMode: .inline)
+            .navigationBarTitle(Text(self.editablePerson.fullName), displayMode: .inline)
             .navigationBarItems(trailing:
                 Button(action: {
                     if self.isEditing {
