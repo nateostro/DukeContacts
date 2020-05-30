@@ -13,34 +13,59 @@ struct ListView: View {
     @ObservedObject var dukePeopleModel = DukePeopleModel()
     
     @State var isAdding : Bool = false
+    @State var searchText = ""
+    @State var isSearching = false
     
     var body: some View {
         NavigationView {
-            // Because this list observes the dukePeople variable contained in dukePeopleModel, it will change whenever that list changes.
+            // Because this list observes the dukePeople variable contained in dukePeopleModel, it will change whenever that list changes
             List {
+                if isSearching {
+                    SearchBar(text: $searchText).animation(.default)
+                }
                 Section(header: StudentHeader()) {
-                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .Student}){ dukePerson in
+                    ForEach(isSearching ?
+                        dukePeopleModel.dukePeople.filter{$0.role == .Student && ($0.fullName.contains(searchText) || searchText == "")} :
+                        dukePeopleModel.dukePeople.filter{$0.role == .Student}
+                    ){ dukePerson in
                         PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
                     }.onDelete(perform: deleteItems(at:))
                 }
                 Section(header: ProfHeader()) {
-                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .Professor}){ dukePerson in
+                    ForEach(isSearching ?
+                        dukePeopleModel.dukePeople.filter{$0.role == .Professor && ($0.fullName.contains(searchText) || searchText == "")} :
+                        dukePeopleModel.dukePeople.filter{$0.role == .Professor}
+                    ){ dukePerson in
                         PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
                     }.onDelete(perform: deleteItems(at:))
                 }
                 Section(header: TAHeader()) {
-                    ForEach(dukePeopleModel.dukePeople.filter{$0.role == .TA}){ dukePerson in
+                    ForEach(isSearching ?
+                        dukePeopleModel.dukePeople.filter{$0.role == .TA && ($0.fullName.contains(searchText) || searchText == "")} :
+                        dukePeopleModel.dukePeople.filter{$0.role == .TA}
+                    ){ dukePerson in
                         PersonRow(dukePeopleModel : self.dukePeopleModel, dukePerson: dukePerson, thisPersonIndex: self.dukePeopleModel.dukePeople.firstIndex(of: dukePerson)!)
                     }.onDelete(perform: deleteItems(at:))
                 }
             }
             .navigationBarTitle("Duke People")
-            .navigationBarItems(trailing: Button(action: {
-                    self.isAdding.toggle()
-                }, label: {
-                    Image(systemName: "person.crop.circle.fill.badge.plus")
-                        .font(Font.system(.title)).accentColor(.green)
-                })
+            .navigationBarItems(trailing:
+                HStack {
+                    Button(action: {
+                        self.isSearching.toggle()
+                    }, label: {
+                        Image(systemName: "magnifyingglass")
+                            .font(Font.system(.title)).accentColor(.blue)
+                    })
+                    Spacer()
+                    Spacer()
+                    Button(action: {
+                        self.isAdding.toggle()
+                    }, label: {
+                        Image(systemName: "person.crop.circle.fill.badge.plus")
+                            .font(Font.system(.title)).accentColor(.green)
+                    })
+                }
             )
             .sheet(isPresented: $isAdding, content: {
                 AddView(isAdding: self.$isAdding, didAddPerson: { person in
