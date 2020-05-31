@@ -10,52 +10,12 @@ import Foundation
 
 public class DukePeopleModel : ObservableObject {
     @Published var dukePeople : [DukePerson] = [
-        DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: .Professor, program: .Unspecified, languages: "Swift, C, and C++", hobbies: "Biking, Hiking, Golf"),
-        DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: .TA, program: .Graduate, languages: "", hobbies: ""),
-        DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", profPicName: "defaultProfPic", role: .Student, program: .Undergraduate, languages: "Swift, C, and Mathematica", hobbies: "Backpacking, Playing Guitar, Reading the News")
+        DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: .Professor, program: .Unspecified, languages: "Swift, C, and C++", hobbies: "Biking, Hiking, Golf", hasAnimation: false),
+        DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: .TA, program: .Graduate, languages: "", hobbies: "", hasAnimation: false),
+        DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", profPicName: "nathanProfPic", role: .Student, program: .Undergraduate, languages: "Swift, C, and Mathematica", hobbies: "Backpacking, Playing Guitar, Reading the News", hasAnimation: true)
     ]
     
     @Published var editablePerson : DukePerson = DukePerson()
-    
-    func searchDukePeople(person: DukePerson) -> Array<DukePerson>?{
-                
-        // Creates a filteredResults array and adds all Duke People.
-        var filteredResults : Array<DukePerson> = dukePeople
-        
-        // Filters for each search criteria that is neither empty nor unspecified. (Not necessarily the most concise solution I found, but by far the most readable).
-        if person.firstName != "" {
-            filteredResults = filteredResults.filter({
-                $0.firstName == person.firstName || $0.firstName.contains(person.whereFrom)
-            })
-        }
-        if person.lastName != "" {
-            filteredResults = filteredResults.filter({
-                $0.lastName == person.lastName || $0.lastName.contains(person.whereFrom)
-            })
-        }
-        if person.whereFrom != "" {
-            filteredResults = filteredResults.filter({
-                $0.whereFrom == person.whereFrom || $0.whereFrom == "" || $0.whereFrom.contains(person.whereFrom)
-            })
-        }
-        if person.gender != "" {
-            filteredResults = filteredResults.filter({
-                $0.gender == person.gender || $0.gender == "" || $0.gender.contains(person.gender)
-            })
-        }
-        if person.role != .Unspecified {
-            filteredResults = filteredResults.filter({
-                $0.role == person.role
-            })
-        }
-        if person.role != .Unspecified {
-            filteredResults = filteredResults.filter({
-                $0.program == person.program
-            })
-        }
-        
-        return filteredResults
-    }
     
 }
 

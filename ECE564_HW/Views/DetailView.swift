@@ -16,28 +16,17 @@ struct DetailView: View {
     
     @State var isEditing : Bool = false
     @State var insufficientInformationAlert = false
+    @State var isAnimating : Bool = false
             
     var body: some View {
         VStack {
-            HStack(alignment: .top) {
-               Image(systemName: "photo.fill")
-                   .resizable()
-                   .clipShape(Circle())
-                   .scaledToFill()
-                   .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                   .frame(width: 100, height: 100, alignment: .center)
-                
-                .frame(alignment: .trailing)
-                .padding(.init(top: 5, leading: 20, bottom: 10, trailing: 20))
-            }
-    
-               
-            InfoView(dukePerson: self.editablePerson, canEdit: $isEditing)
+            
+            InfoView(dukePerson: self.editablePerson, canEdit: $isEditing, isAnimating: $isAnimating)
                
             if isEditing {
                HStack{
                    Button(action: {
-                    if self.editablePerson.firstName != "" && self.editablePerson.lastName != "" && self.editablePerson.role != .Unspecified {
+                    if self.editablePerson.firstName != "" && self.editablePerson.lastName != "" {
                         self.dukePeopleModel.dukePeople[self.thisPersonIndex] = self.editablePerson
                     } else {
                         self.insufficientInformationAlert.toggle()
@@ -74,6 +63,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(dukePeopleModel: DukePeopleModel(), thisPersonIndex: 1, copiedPerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson, editablePerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson)
+        DetailView(dukePeopleModel: DukePeopleModel(), thisPersonIndex: 1, copiedPerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson, editablePerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson, isAnimating: false)
     }
 }

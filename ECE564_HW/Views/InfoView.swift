@@ -14,96 +14,131 @@ struct InfoView: View {
         
     @Binding var canEdit : Bool
     
+    @Binding var isAnimating : Bool
+    
     var body: some View {
-        Form {
-            
-            Section(header: BasicInfoHeader()) {
-                HStack {
-                    Text("First Name:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter first name", text: $dukePerson.firstName)
-                    .frame(width: 180, alignment: .trailing)
-                    .foregroundColor((!canEdit ? .gray : .black))
-                    .font(.callout)
-                    .disabled(!canEdit)
-                }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
-                HStack {
-                    Text("Last Name:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter last name", text: $dukePerson.lastName)
-                    .frame(width: 180, alignment: .trailing)
-                    .foregroundColor((!canEdit ? .gray : .black))
-                    .font(.callout)
-                    .disabled(!canEdit)
-                }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
-                HStack(spacing: 16) {
-                    Text("Hometown:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter hometown", text: $dukePerson.whereFrom)
-                    .frame(width: 180, alignment: .trailing)
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
-                HStack(spacing: 16) {
-                    Text("Gender:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter gender", text: $dukePerson.gender)
-                    .frame(width: 180, alignment: .trailing)
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-            }
-            Section(header: DukeInfoHeader()) {
-                HStack(spacing: 16) {
-                    Picker(selection: $dukePerson.role, label: Text("Role")) {
-                        ForEach(DukePerson.DukeRole.allCases, id: \.self) {
-                            Text($0.rawValue)
+        ZStack {
+            VStack {
+                HStack(alignment: .top) {
+                    Image(dukePerson.profPicName)
+                       .resizable()
+                       .clipShape(Circle())
+                       .scaledToFill()
+                       .overlay(Circle().stroke(Color.black, lineWidth: 2))
+                       .frame(width: 100, height: 100, alignment: .center)
+                    
+                    .frame(alignment: .trailing)
+                    .padding(.init(top: 5, leading: 20, bottom: 10, trailing: 20))
+                }.background(Color.white.opacity(0.5))
+                Form {
+                    Section(header: BasicInfoHeader()) {
+                        HStack {
+                            Text("First Name:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter first name", text: $dukePerson.firstName)
+                            .frame(width: 180, alignment: .trailing)
+                            .foregroundColor((!canEdit ? .gray : .black))
+                            .font(.callout)
+                            .disabled(!canEdit)
+                        }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                        
+                        HStack {
+                            Text("Last Name:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter last name", text: $dukePerson.lastName)
+                            .frame(width: 180, alignment: .trailing)
+                            .foregroundColor((!canEdit ? .gray : .black))
+                            .font(.callout)
+                            .disabled(!canEdit)
+                        }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                        
+                        HStack(spacing: 16) {
+                            Text("Hometown:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter hometown", text: $dukePerson.whereFrom)
+                            .frame(width: 180, alignment: .trailing)
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                        
+                        HStack(spacing: 16) {
+                            Text("Gender:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter gender", text: $dukePerson.gender)
+                            .frame(width: 180, alignment: .trailing)
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                    }
+                    Section(header: DukeInfoHeader()) {
+                        HStack(spacing: 16) {
+                            Picker(selection: $dukePerson.role, label: Text("Role")) {
+                                ForEach(DukePerson.DukeRole.allCases, id: \.self) {
+                                    Text($0.rawValue)
+                                }
+                            }.pickerStyle(SegmentedPickerStyle())
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                        
+                        HStack {
+                            Picker(selection: $dukePerson.program, label: Text("Program")) {
+                                ForEach(DukePerson.DukeProgram.allCases, id: \.self) {
+                                    Text($0.rawValue)
+                                }
+                            }.pickerStyle(SegmentedPickerStyle())
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                    }
+                    Section(header: PersonalInfoHeader()) {
+                        HStack {
+                            Text("Languages:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter CS Languages", text: $dukePerson.languages)
+                            .frame(width: 180, alignment: .trailing)
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                        
+                        HStack(spacing: 16) {
+                            Text("Hobbies:").frame(alignment: .leading)
+                            Spacer()
+                         TextField("Enter Hobbies", text: $dukePerson.hobbies)
+                            .frame(width: 180, alignment: .trailing)
+                                .foregroundColor((!canEdit ? .gray : .black))
+                                .font(.callout)
+                                .disabled(!canEdit)
+                            }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+                    }
+                    if dukePerson.hasAnimation {
+                        Section(header: AnimationInfoHeader()) {
+                            HStack {
+                                Text("Animation:").frame(alignment: .leading)
+                                Spacer()
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 1)) {
+                                        self.isAnimating.toggle()
+                                    }
+                                }){
+                                    Image(systemName: "play.fill")
+                                }
+                            }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
                         }
-                    }.pickerStyle(SegmentedPickerStyle())
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-                
-                HStack {
-                    Picker(selection: $dukePerson.program, label: Text("Program")) {
-                        ForEach(DukePerson.DukeProgram.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                    }
+                }
             }
-            Section(header: PersonalInfoHeader()) {
-                HStack {
-                    Text("Languages:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter CS Languages", text: $dukePerson.languages)
-                    .frame(width: 180, alignment: .trailing)
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
-                
-                HStack(spacing: 16) {
-                    Text("Hobbies:").frame(alignment: .leading)
-                    Spacer()
-                 TextField("Enter Hobbies", text: $dukePerson.hobbies)
-                    .frame(width: 180, alignment: .trailing)
-                        .foregroundColor((!canEdit ? .gray : .black))
-                        .font(.callout)
-                        .disabled(!canEdit)
-                    }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
+            if isAnimating {
+                AnimationView()
             }
         }
     }
+
 }
 
 struct BasicInfoHeader: View {
@@ -129,6 +164,15 @@ struct PersonalInfoHeader: View {
         HStack {
             Image(systemName: "star.circle.fill")
             Text("Personal Info")
+        }
+    }
+}
+
+struct AnimationInfoHeader: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "livephoto.play")
+            Text("Animation")
         }
     }
 }

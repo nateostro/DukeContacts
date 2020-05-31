@@ -15,6 +15,7 @@ struct AddView: View {
     @State var insufficientInformationAlert = false
     var didAddPerson: (DukePerson) -> ()
     @State var dukePerson : DukePerson = DukePerson()
+    @State var isAnimating : Bool = false
 
     var body: some View {
         
@@ -31,16 +32,7 @@ struct AddView: View {
                 .frame(alignment: .trailing)
                 .padding(.init(top: 25, leading: 20, bottom: 0, trailing: 30))
             
-            Image(systemName: "photo.fill")
-                .resizable()
-                .clipShape(Circle())
-                .scaledToFill()
-                .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                .frame(width: 100, height: 100, alignment: .center)
-                .padding(.bottom, 10)
- 
-            
-            InfoView(dukePerson: dukePerson, canEdit: $isAdding)
+            InfoView(dukePerson: dukePerson, canEdit: $isAdding, isAnimating: $isAnimating)
             
             HStack{
                 Button(action: {

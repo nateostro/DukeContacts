@@ -31,7 +31,6 @@ struct SearchBar: View {
                         if isSearching {
                             Button(action: {
                                 self.text = ""
-                                
                             }) {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -56,7 +55,7 @@ struct SearchBar: View {
                 }
                 .padding(.trailing, 5)
                 .transition(.move(edge: .trailing))
-                .animation(.default)
+                .animation(.easeIn)
             }
         }
     }

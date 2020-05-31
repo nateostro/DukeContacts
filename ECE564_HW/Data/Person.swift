@@ -46,7 +46,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
     }
 
     func mutableCopy(with zone: NSZone? = nil) -> Any {
-        var copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: role, program: program, languages: languages, hobbies: hobbies)
+        let copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: role, program: program, languages: languages, hobbies: hobbies, hasAnimation: hasAnimation)
         return copy
     }
     
@@ -54,7 +54,6 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
         case Student
         case TA
         case Professor
-        case Unspecified
     }
     
     enum DukeProgram : String, CaseIterable {
@@ -63,18 +62,20 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
         case Unspecified
     }
 
-    var role : DukeRole = .Unspecified
+    var role : DukeRole = .Student
     var program : DukeProgram = .Unspecified
     var languages: String = ""
     var hobbies : String = ""
+    var hasAnimation : Bool = false
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram, languages: String, hobbies: String){
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram, languages: String, hobbies: String, hasAnimation: Bool){
         self.role = role
         self.program = program
         self.languages = languages
         self.hobbies = hobbies
+        self.hasAnimation = hasAnimation
         super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
     }
     override var description: String {
@@ -87,7 +88,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
             genderDescription = "They are"
         }
         return (super.description
-            + " and is " + (role != .Unspecified ? "a \(role)" : "at Duke in an unspecified role") + "."
+            + " and is " +  "a \(role)."
                 + " " + genderDescription + " proficient in " + (languages != "" ? languages : "some languages") + "."
                 + " " + firstName + " enjoys " + (hobbies != "" ? hobbies : "some activities") + "."
         )
