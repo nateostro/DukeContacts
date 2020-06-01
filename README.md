@@ -33,7 +33,18 @@ Added neutral descriptions that account for an absence of information about a pa
 Greyed out text to make clear to the user when elements were editable or not editable.
 
 ## HW3
-add text here
+
+Played around with some different ideas, but ultimately made a "playable" guitar in swiftui, with different animations when the guitar comes into the the scene and when the guitar moves after a user "strums" (i.e. swipes).
+
+I wanted it to feel responsive, so while an earlier version of my animation used an explicit UIBezierPath to guide the music notes, in the final animation, I instantiated start and end locations with each DragGesture and used screen data to make music notes that mirror the user's swipe path once the user finishes swiping. Additionally, this way, forceful strums create more forceful movements of music notes, and lighter strums create lighter paths for music notes. 
+
+I also played around quite a lot with SwiftUI to make sure that the guitar and music note lay on top of the scene but don't take the user out of the information screen. Because of this, all of the animation coordinates were significantly off and took many rounds of trial and error to produce a workable animation.
+
+The guitar will also produce a sound with an AVAudioPlayer. This, I will note, was by far the hardest piece to get working. There doesn't seem to be much useful documentation on AVAudioPlayer and SwiftUI, and my computer kept producing an unhelpful error:
+
+[plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x60000289b040> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+
+Eventually, I found that the source of the problem lied with the D_Chord.mov file I had recorded on my phone. There seemed to be multiple unanswered instances of this question online, so if someone else in the future tries to use audio with SwiftUI and runs into that problem, let them know it's a filetype error. 
 
 ## HW4
 add text here

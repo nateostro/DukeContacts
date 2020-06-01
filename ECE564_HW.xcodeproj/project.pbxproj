@@ -15,6 +15,7 @@
 		1E3F187A247C59CE0096BD6D /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F1879247C59CE0096BD6D /* InfoView.swift */; };
 		1ECFD15E2482DDD1001DD09C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECFD15D2482DDD1001DD09C /* SearchBar.swift */; };
 		1ECFD160248310AB001DD09C /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECFD15F248310AB001DD09C /* AnimationView.swift */; };
+		1EFB5E5024857D3F0018EA50 /* D_Chord.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1EFB5E4F24857D3F0018EA50 /* D_Chord.mp3 */; };
 		873481602469DEE8000B9A79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734815F2469DEE8000B9A79 /* AppDelegate.swift */; };
 		873481622469DEE8000B9A79 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873481612469DEE8000B9A79 /* SceneDelegate.swift */; };
 		873481692469DEE9000B9A79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873481682469DEE9000B9A79 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		1ECFD15D2482DDD1001DD09C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		1ECFD15F248310AB001DD09C /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		1EECB94C246E3B970088BF05 /* HW1_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW1_Instructions.md; sourceTree = "<group>"; };
+		1EFB5E4F24857D3F0018EA50 /* D_Chord.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = D_Chord.mp3; sourceTree = "<group>"; };
 		8734815C2469DEE8000B9A79 /* ECE564_HW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECE564_HW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8734815F2469DEE8000B9A79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		873481612469DEE8000B9A79 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		8734815E2469DEE8000B9A79 /* ECE564_HW */ = {
 			isa = PBXGroup;
 			children = (
+				1EFB5E4F24857D3F0018EA50 /* D_Chord.mp3 */,
 				8734815F2469DEE8000B9A79 /* AppDelegate.swift */,
 				873481612469DEE8000B9A79 /* SceneDelegate.swift */,
 				1E34B2912478B75100ED4A85 /* Views */,
@@ -181,6 +184,7 @@
 			files = (
 				8734816C2469DEE9000B9A79 /* LaunchScreen.storyboard in Resources */,
 				873481692469DEE9000B9A79 /* Assets.xcassets in Resources */,
+				1EFB5E5024857D3F0018EA50 /* D_Chord.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,13 +341,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U6J58C8CJT;
+				DEVELOPMENT_TEAM = 99257Q9DGA;
 				INFOPLIST_FILE = ECE564_HW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW.ostrowski";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -355,13 +359,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U6J58C8CJT;
+				DEVELOPMENT_TEAM = 99257Q9DGA;
 				INFOPLIST_FILE = ECE564_HW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW.ostrowski";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

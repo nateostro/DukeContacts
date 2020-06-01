@@ -126,7 +126,7 @@ struct InfoView: View {
                                         self.isAnimating.toggle()
                                     }
                                 }){
-                                    Image(systemName: "play.fill")
+                                    Image(systemName: (isAnimating ? "multiply.circle.fill": "play.fill")).accentColor((isAnimating ? .red : .blue))
                                 }
                             }.padding(.init(top: 2, leading: 10, bottom: 2, trailing: 20))
                         }

@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import AVFoundation
+var audioPlayer: AVAudioPlayer!
 
 struct AnimationView: View {
     @State var guitarIsBouncing : Bool = false
@@ -16,62 +18,62 @@ struct AnimationView: View {
     @State var showNoteTwo = false
     @State var showNoteThree = false
     @State var opacity = 1
-    
+    @State var didSwipe = false
+    @State var startSwipePosition : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    @State var endSwipePosition : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    @State var isPlayingSound : Bool = false
+            
     var body: some View {
         ZStack {
             Image("guitar")
                 .offset(y: guitarIsBouncing ? 0 : -300)
-                .rotationEffect(.degrees(guitarIsShaking ? 2 : 0))
+                .shadow(radius: 4)
+                .rotationEffect(.degrees(guitarIsShaking ? 4 : 0)).animation(Animation.interpolatingSpring(stiffness: 150, damping: 5))
                 .onAppear(perform: {
                     withAnimation(Animation.interpolatingSpring(stiffness: 110, damping: 10)) {
                         self.guitarIsBouncing.toggle()
                     }
-                    withAnimation(Animation.interpolatingSpring(stiffness: 150, damping: 5).repeatForever(autoreverses: true).delay(2)) {
-                        self.guitarIsShaking.toggle()
+                }).gesture(DragGesture().onChanged({ value in
+                    self.startSwipePosition = value.startLocation
+                }).onEnded({ value in
+                    self.endSwipePosition = value.predictedEndLocation
+                    self.guitarIsShaking.toggle()
+                    self.didSwipe = true
+                    self.isPlayingSound.toggle()
+                    Sounds.playSounds(soundfile: "D_Chord.mp3")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.didSwipe = false
                     }
-                })
+                }))
             
+            Image(systemName: "music.note")
+                .resizable()
+                .frame(width: (didSwipe ? 20 : 5), height: (didSwipe ? 30 : 5))
+                .opacity(didSwipe ? 1 : 0)
+                .position(x: (didSwipe ? startSwipePosition.x : endSwipePosition.x), y: (didSwipe ? startSwipePosition.y+150 : endSwipePosition.y+150))
+                .rotationEffect(.degrees(showNoteOne ? -10 : 10))
+                //.offset(x: 50, y: 340)
+                .animation(Animation.easeOut(duration: 0.7).delay(0))
 
-            Image(systemName: "music.note") // Splash
-                .resizable()
-                //.opacity(showSplash ? 0 : 1)
-                .frame(width: (showNoteOne ? 20 : 5), height: (showNoteOne ? 30 : 5))
-                .opacity(showNoteOne ? 1 : 0)
-                .position(x: (guitarIsShaking ? 185 : 190), y: (guitarIsShaking ? 220 : 230))
-                .rotationEffect(.degrees(showNoteOne ? -5 : 5))
-                //.offset(x: 50, y: 340)
-                .animation(Animation.easeIn(duration: 0.5).repeatForever(autoreverses: true).delay(2.3))
-                .onAppear() {
-                    self.showNoteOne.toggle()
-                }
             
-            Image(systemName: "music.note") // Splash
+            Image(systemName: "music.note")
                 .resizable()
-                //.opacity(showSplash ? 0 : 1)
-                .frame(width: (showNoteTwo ? 20 : 5), height: (showNoteTwo ? 30 : 5))
-                .opacity(showNoteTwo ? 1 : 0)
-                .rotationEffect(.degrees(showNoteTwo ? -5 : 5))
-                .position(x: 275, y: 320)
+                .frame(width: (didSwipe ? 20 : 5), height: (didSwipe ? 30 : 5))
+                .opacity(didSwipe ? 1 : 0)
+                .rotationEffect(.degrees(didSwipe ? -10 : 10))
+                .position(x: (didSwipe ? startSwipePosition.x-5 : endSwipePosition.x-5), y: (didSwipe ? startSwipePosition.y+160 : endSwipePosition.y+160))
                 //.offset(x: 50, y: 340)
-                .animation(Animation.easeIn(duration: 0.5).repeatForever(autoreverses: true).delay(2.46))
-                .onAppear() {
-                    self.showNoteTwo.toggle()
-                }
+                .animation(Animation.easeOut(duration: 0.7).delay(0.2))
+
             
-            Image(systemName: "music.note") // Splash
+            Image(systemName: "music.note")
                 .resizable()
-                //.opacity(showSplash ? 0 : 1)
-                .frame(width: (showNoteThree ? 20 : 5), height: (showNoteThree ? 30 : 5))
-                .opacity(showNoteThree ? 1 : 0)
-                .rotationEffect(.degrees(showNoteThree ? -5 : 5))
-                .position(x: 300, y: 230)
+                .frame(width: (didSwipe ? 20 : 5), height: (didSwipe ? 30 : 5))
+                .opacity(didSwipe ? 1 : 0)
+                .rotationEffect(.degrees(didSwipe ? -10 : 10))
+                .position(x: (didSwipe ? startSwipePosition.x : endSwipePosition.x), y: (didSwipe ? startSwipePosition.y+170 : endSwipePosition.y+170))
                 //.offset(x: 50, y: 340)
-                .animation(Animation.easeIn(duration: 0.5).repeatForever(autoreverses: true).delay(2.62))
-                .onAppear() {
-                    self.showNoteThree.toggle()
-                }
-                
-            
+                .animation(Animation.easeOut(duration: 0.7).delay(0.4))
             
         }
     }
@@ -86,6 +88,26 @@ struct Blur: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
         uiView.effect = UIBlurEffect(style: style)
     }
+}
+
+class Sounds {
+
+  static var audioPlayer:AVAudioPlayer?
+
+  static func playSounds(soundfile: String) {
+
+      if let path = Bundle.main.path(forResource: soundfile, ofType: nil){
+
+          do{
+              audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+              audioPlayer?.prepareToPlay()
+              audioPlayer?.play()
+
+          }catch {
+              print("Error")
+          }
+      }
+   }
 }
 
 struct AnimationModal_Previews: PreviewProvider {
