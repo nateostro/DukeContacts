@@ -28,6 +28,7 @@ struct DetailView: View {
                    Button(action: {
                     if self.editablePerson.firstName != "" && self.editablePerson.lastName != "" {
                         self.dukePeopleModel.dukePeople[self.thisPersonIndex] = self.editablePerson
+                        let _ = DukePeopleModel.saveDukePeople(dukePeople: self.dukePeopleModel.dukePeople)
                     } else {
                         self.insufficientInformationAlert.toggle()
                     }

@@ -47,6 +47,7 @@ The guitar will also produce a sound with an AVAudioPlayer. This, I will note, w
 Eventually, I found that the source of the problem lied with the D_Chord.mov file I had recorded on my phone. There seemed to be multiple unanswered instances of this question online, so if someone else in the future tries to use audio with SwiftUI and runs into that problem, let them know it's a filetype error. 
 
 ## HW4
-add text here
 
+Made my own app icon in Photoshop
 
+Implemented persistent storage––took some work to make it compliant with SwiftUI and ObservableObject.

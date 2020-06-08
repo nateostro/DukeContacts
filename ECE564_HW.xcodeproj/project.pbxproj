@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2ACD20248875D800474814 /* HW4_Instructions.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E2ACD1F248875D800474814 /* HW4_Instructions.md */; };
 		1E34B28B2478B40F00ED4A85 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28A2478B40F00ED4A85 /* ListView.swift */; };
 		1E34B28D2478B53B00ED4A85 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28C2478B53B00ED4A85 /* Person.swift */; };
 		1E34B28F2478B69300ED4A85 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28E2478B69300ED4A85 /* ViewModel.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E2ACD1F248875D800474814 /* HW4_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW4_Instructions.md; sourceTree = "<group>"; };
 		1E34B24D2478AECD00ED4A85 /* HW2_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW2_Instructions.md; sourceTree = "<group>"; };
 		1E34B28A2478B40F00ED4A85 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		1E34B28C2478B53B00ED4A85 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				1EECB94C246E3B970088BF05 /* HW1_Instructions.md */,
 				1E34B24D2478AECD00ED4A85 /* HW2_Instructions.md */,
 				1ECFD15C2481C9C6001DD09C /* HW3_Instructions.md */,
+				1E2ACD1F248875D800474814 /* HW4_Instructions.md */,
 			);
 			path = "HW Instructions";
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8734816C2469DEE9000B9A79 /* LaunchScreen.storyboard in Resources */,
+				1E2ACD20248875D800474814 /* HW4_Instructions.md in Resources */,
 				873481692469DEE9000B9A79 /* Assets.xcassets in Resources */,
 				1EFB5E5024857D3F0018EA50 /* D_Chord.mp3 in Resources */,
 			);
@@ -348,7 +352,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW.ostrowski";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ECE564_HW;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.duke.ECE564-HW.ostrowski";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ECE564_HW;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

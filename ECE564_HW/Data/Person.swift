@@ -40,7 +40,8 @@ class Person : CustomStringConvertible, Identifiable {
     }
 }
 
-class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
+class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codable {
+    
     static func == (lhs: DukePerson, rhs: DukePerson) -> Bool {
         return lhs.description == rhs.description
     }
@@ -50,13 +51,13 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
         return copy
     }
     
-    enum DukeRole : String, CaseIterable {
+    enum DukeRole : String, CaseIterable, Codable {
         case Student
         case TA
         case Professor
     }
     
-    enum DukeProgram : String, CaseIterable {
+    enum DukeProgram : String, CaseIterable, Codable {
         case Undergraduate
         case Graduate
         case Unspecified
@@ -93,4 +94,44 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable {
                 + " " + firstName + " enjoys " + (hobbies != "" ? hobbies : "some activities") + "."
         )
     }
+    
+    enum CodingKeys : CodingKey {
+        case firstName, lastName, gender, whereFrom, profPicName, role, program, languages, hobbies, hasAnimation
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(firstName, forKey: .firstName)
+        try container.encode(lastName, forKey: .lastName)
+        try container.encode(gender, forKey: .gender)
+        try container.encode(whereFrom, forKey: .whereFrom)
+        try container.encode(profPicName, forKey: .profPicName)
+        
+        try container.encode(role.rawValue, forKey: .role)
+        try container.encode(program.rawValue, forKey: .program)
+
+        try container.encode(languages, forKey: .languages)
+        try container.encode(hobbies, forKey: .hobbies)
+        try container.encode(hasAnimation, forKey: .hasAnimation)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        super.init()
+
+        firstName = try container.decode(String.self, forKey: .firstName)
+        lastName = try container.decode(String.self, forKey: .lastName)
+        gender = try container.decode(String.self, forKey: .gender)
+        whereFrom = try container.decode(String.self, forKey: .whereFrom)
+        profPicName = try container.decode(String.self, forKey: .profPicName)
+
+        role = try container.decode(DukeRole.self, forKey: .role)
+        program = try container.decode(DukeProgram.self, forKey: .program)
+
+        languages = try container.decode(String.self, forKey: .languages)
+        hobbies = try container.decode(String.self, forKey: .hobbies)
+        hasAnimation = try container.decode(Bool.self, forKey: .hasAnimation)
+    }
+    
 }

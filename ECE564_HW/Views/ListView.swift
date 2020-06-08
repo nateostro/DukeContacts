@@ -73,6 +73,7 @@ struct ListView: View {
                         self.dukePeopleModel.dukePeople.remove(at: foundIndex)
                     }
                     self.dukePeopleModel.dukePeople.append(person)
+                    let _ = DukePeopleModel.saveDukePeople(dukePeople: self.dukePeopleModel.dukePeople)
                 })
             })
         }
@@ -80,6 +81,7 @@ struct ListView: View {
     
     func deleteItems(at offsets: IndexSet){
         dukePeopleModel.dukePeople.remove(atOffsets: offsets)
+        let _ = DukePeopleModel.saveDukePeople(dukePeople: self.dukePeopleModel.dukePeople)
     }
 }
 
