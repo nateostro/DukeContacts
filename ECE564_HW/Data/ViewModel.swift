@@ -65,7 +65,6 @@ public class DukePeopleModel : ObservableObject {
             return nil
         }
         if let decoded = try? decoder.decode([DukePerson].self, from: tempData) {
-            print(decoded[0].firstName)
             foundDukePeople = decoded
         }
         return foundDukePeople

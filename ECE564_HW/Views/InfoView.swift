@@ -20,16 +20,25 @@ struct InfoView: View {
         ZStack {
             VStack {
                 HStack(alignment: .top) {
-                    Image(dukePerson.profPicName)
-                       .resizable()
-                       .clipShape(Circle())
-                       .scaledToFill()
-                       .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                       .frame(width: 100, height: 100, alignment: .center)
-                    
-                    .frame(alignment: .trailing)
-                    .padding(.init(top: 5, leading: 20, bottom: 10, trailing: 20))
-                }.background(Color.white.opacity(0.5))
+                    ZStack(alignment: .center){
+                        Image(dukePerson.profPicName)
+                           .resizable()
+                           .clipShape(Circle())
+                           .scaledToFill()
+                           .overlay(Circle().stroke(Color.black, lineWidth: 2))
+                           .frame(width: 100, height: 100, alignment: .center)
+                           .shadow(radius: 5)
+                           .brightness((canEdit ? -0.5 : 0))
+                        .frame(alignment: .trailing)
+                        .padding(.init(top: 5, leading: 20, bottom: 0, trailing: 20))
+                        if canEdit {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .frame(width: 25, height: 25, alignment: .center)
+                                .colorInvert()
+                        }
+                    }
+                }.background(Color.white.opacity(0))
                 Form {
                     Section(header: BasicInfoHeader()) {
                         HStack {

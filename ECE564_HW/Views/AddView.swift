@@ -47,10 +47,10 @@ struct AddView: View {
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                 })
-            }.padding(.all, 12)
+            }.padding(.init(top: 12, leading: 120, bottom: 12, trailing: 120))
             .background(Color.green)
             .cornerRadius(5)
-            .frame(width: 300, height: 60, alignment: .center)
+            .frame(width: 340, height: 60, alignment: .center)
         
         }.alert(isPresented: $insufficientInformationAlert){
             .init(title: Text("Insufficient Information"), message: Text("Please enter both a first and last name"))

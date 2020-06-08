@@ -38,10 +38,10 @@ struct DetailView: View {
                        .foregroundColor(.white)
                        .fontWeight(.bold)
                    })
-               }.padding(.all, 12)
+               }.padding(.init(top: 12, leading: 150, bottom: 12, trailing: 150))
                 .background(Color.green)
                 .cornerRadius(5)
-                .frame(width: 300, height: 60, alignment: .center)
+                .frame(width: 340, height: 60, alignment: .center)
             }
            
         }.alert(isPresented: $insufficientInformationAlert){
@@ -55,7 +55,7 @@ struct DetailView: View {
                      self.isEditing.toggle()
                 }, label: {
                  Image(systemName: (isEditing ? "multiply.circle.fill" : "square.and.pencil"))
-                    .font(Font.system(.title)).accentColor((isEditing ? .blue : .red))
+                    .font(Font.system(.title)).accentColor((isEditing ? .red : .blue))
                 })
             )
         

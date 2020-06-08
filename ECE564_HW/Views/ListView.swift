@@ -103,9 +103,9 @@ struct PersonRow : View {
                     .resizable()
                     .clipShape(Circle())
                     .scaledToFill()
-                    .overlay(Circle().stroke(Color.black, lineWidth: 2))
+                    .overlay(Circle().stroke(Color.black, lineWidth: 1.5))
                     .frame(width: 70, height: 70)
-                
+                    .shadow(radius: 4)
                 VStack (alignment: .leading) {
                     Text(dukePerson.fullName).font(.headline).padding(.init(top: 0, leading: 0, bottom: 5, trailing: 0))
                     Text(dukePerson.description).fontWeight(.light).lineLimit(nil).font(.system(size: 14))
