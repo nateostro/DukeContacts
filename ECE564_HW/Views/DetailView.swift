@@ -17,16 +17,21 @@ struct DetailView: View {
     @State var isEditing : Bool = false
     @State var insufficientInformationAlert = false
     @State var isAnimating : Bool = false
+    
+    @State var pickedImage: UIImage? = nil
             
     var body: some View {
         VStack {
             
-            InfoView(dukePerson: self.editablePerson, canEdit: $isEditing, isAnimating: $isAnimating)
+            InfoView(dukePerson: self.editablePerson, canEdit: $isEditing, isAnimating: $isAnimating, pickedImage: $pickedImage)
                
             if isEditing {
                HStack{
                    Button(action: {
                     if self.editablePerson.firstName != "" && self.editablePerson.lastName != "" {
+                        if self.pickedImage != nil {
+                            self.editablePerson.imageString = self.pickedImage!.jpegData(compressionQuality: 0.1)!.base64EncodedString()
+                        }
                         self.dukePeopleModel.dukePeople[self.thisPersonIndex] = self.editablePerson
                         let _ = DukePeopleModel.saveDukePeople(dukePeople: self.dukePeopleModel.dukePeople)
                     } else {
@@ -38,10 +43,13 @@ struct DetailView: View {
                        .foregroundColor(.white)
                        .fontWeight(.bold)
                    })
+                
                }.padding(.init(top: 12, leading: 150, bottom: 12, trailing: 150))
                 .background(Color.green)
                 .cornerRadius(5)
                 .frame(width: 340, height: 60, alignment: .center)
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut)
             }
            
         }.alert(isPresented: $insufficientInformationAlert){
@@ -52,10 +60,12 @@ struct DetailView: View {
                     if self.isEditing {
                         self.editablePerson = self.copiedPerson
                     }
-                     self.isEditing.toggle()
+                    self.isEditing.toggle()
+                    self.pickedImage = nil
                 }, label: {
                  Image(systemName: (isEditing ? "multiply.circle.fill" : "square.and.pencil"))
-                    .font(Font.system(.title)).accentColor((isEditing ? .red : .blue))
+                    .font(Font.system(.title))
+                    .accentColor((isEditing ? .red : .blue))
                 })
             )
         

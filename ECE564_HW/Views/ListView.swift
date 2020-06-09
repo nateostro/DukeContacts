@@ -99,7 +99,10 @@ struct PersonRow : View {
                 editablePerson: self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson)
             ){
             HStack {
-                Image(dukePerson.profPicName)
+                Image(uiImage: ((dukePerson.imageString == "" ?
+                    UIImage(named: "defaultProfPic") :
+                    UIImage(data: Data(base64Encoded: dukePerson.imageString)!))!
+                ))
                     .resizable()
                     .clipShape(Circle())
                     .scaledToFill()

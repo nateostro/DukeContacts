@@ -13,15 +13,19 @@ struct InfoView: View {
     @ObservedObject var dukePerson : DukePerson
         
     @Binding var canEdit : Bool
-    
     @Binding var isAnimating : Bool
+    @State var showImagePicker: Bool = false
+    @Binding var pickedImage: UIImage?
     
     var body: some View {
         ZStack {
             VStack {
                 HStack(alignment: .top) {
                     ZStack(alignment: .center){
-                        Image(dukePerson.profPicName)
+                        Image(uiImage: pickedImage ?? (dukePerson.imageString == "" ?
+                            UIImage(named: "defaultProfPic") :
+                            UIImage(data: Data(base64Encoded: dukePerson.imageString)!))!
+                        )
                            .resizable()
                            .clipShape(Circle())
                            .scaledToFill()
@@ -32,10 +36,14 @@ struct InfoView: View {
                         .frame(alignment: .trailing)
                         .padding(.init(top: 5, leading: 20, bottom: 0, trailing: 20))
                         if canEdit {
-                            Image(systemName: "plus")
+                            Button(action: {
+                                self.showImagePicker.toggle()
+                            }){
+                                Image(systemName: "plus")
                                 .resizable()
                                 .frame(width: 25, height: 25, alignment: .center)
-                                .colorInvert()
+                                .accentColor(.white)
+                            }
                         }
                     }
                 }.background(Color.white.opacity(0))
@@ -141,7 +149,11 @@ struct InfoView: View {
                         }
                     }
                 }
-            }
+            }.sheet(isPresented: $showImagePicker, onDismiss: {
+                self.showImagePicker = false
+            }, content: {
+                ImagePicker(image: self.$pickedImage, imageIsShown: self.$showImagePicker)
+            })
             if isAnimating {
                 AnimationView()
             }
@@ -183,11 +195,5 @@ struct AnimationInfoHeader: View {
             Image(systemName: "livephoto.play")
             Text("Animation")
         }
-    }
-}
-
-struct InfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

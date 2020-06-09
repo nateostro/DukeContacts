@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: Person and DukePerson Classes
 
@@ -22,15 +23,16 @@ class Person : CustomStringConvertible, Identifiable {
         }
     }
     var whereFrom : String = ""
-    var profPicName : String = "defaultProfPic"
     var gender : String = ""
+    var imageString : String = ""
+    
     init() {}
-    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String) {
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, imageString: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.gender = gender
         self.whereFrom = whereFrom
-        self.profPicName = profPicName
+        self.imageString = imageString
     }
     var description: String {
         // Because first name and last name are required by the add function, both are assumed to not be empty.
@@ -47,7 +49,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codabl
     }
 
     func mutableCopy(with zone: NSZone? = nil) -> Any {
-        let copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName, role: role, program: program, languages: languages, hobbies: hobbies, hasAnimation: hasAnimation)
+        let copy = DukePerson(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, imageString: imageString, role: role, program: program, languages: languages, hobbies: hobbies, hasAnimation: hasAnimation)
         return copy
     }
     
@@ -71,13 +73,13 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codabl
     override init() {
         super.init()
     }
-    init(firstName: String, lastName: String, gender: String, whereFrom: String, profPicName: String, role: DukeRole, program: DukeProgram, languages: String, hobbies: String, hasAnimation: Bool){
+    init(firstName: String, lastName: String, gender: String, whereFrom: String, imageString: String, role: DukeRole, program: DukeProgram, languages: String, hobbies: String, hasAnimation: Bool){
         self.role = role
         self.program = program
         self.languages = languages
         self.hobbies = hobbies
         self.hasAnimation = hasAnimation
-        super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, profPicName: profPicName)
+        super.init(firstName: firstName, lastName: lastName, gender: gender, whereFrom: whereFrom, imageString: imageString)
     }
     override var description: String {
         var genderDescription : String
@@ -96,7 +98,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codabl
     }
     
     enum CodingKeys : CodingKey {
-        case firstName, lastName, gender, whereFrom, profPicName, role, program, languages, hobbies, hasAnimation
+        case firstName, lastName, gender, whereFrom, imageString, role, program, languages, hobbies, hasAnimation
     }
     
     func encode(to encoder: Encoder) throws {
@@ -106,7 +108,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codabl
         try container.encode(lastName, forKey: .lastName)
         try container.encode(gender, forKey: .gender)
         try container.encode(whereFrom, forKey: .whereFrom)
-        try container.encode(profPicName, forKey: .profPicName)
+        try container.encode(imageString, forKey: .imageString)
         
         try container.encode(role.rawValue, forKey: .role)
         try container.encode(program.rawValue, forKey: .program)
@@ -124,7 +126,7 @@ class DukePerson : Person, NSMutableCopying, ObservableObject, Equatable, Codabl
         lastName = try container.decode(String.self, forKey: .lastName)
         gender = try container.decode(String.self, forKey: .gender)
         whereFrom = try container.decode(String.self, forKey: .whereFrom)
-        profPicName = try container.decode(String.self, forKey: .profPicName)
+        imageString = try container.decode(String.self, forKey: .imageString)
 
         role = try container.decode(DukeRole.self, forKey: .role)
         program = try container.decode(DukeProgram.self, forKey: .program)

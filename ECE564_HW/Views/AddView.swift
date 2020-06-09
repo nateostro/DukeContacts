@@ -16,7 +16,8 @@ struct AddView: View {
     var didAddPerson: (DukePerson) -> ()
     @State var dukePerson : DukePerson = DukePerson()
     @State var isAnimating : Bool = false
-
+    @State var pickedImage: UIImage? = nil
+    
     var body: some View {
         
         VStack {
@@ -32,11 +33,14 @@ struct AddView: View {
                 .frame(alignment: .trailing)
                 .padding(.init(top: 25, leading: 20, bottom: 0, trailing: 30))
             
-            InfoView(dukePerson: dukePerson, canEdit: $isAdding, isAnimating: $isAnimating)
+            InfoView(dukePerson: dukePerson, canEdit: $isAdding, isAnimating: $isAnimating, pickedImage: $pickedImage)
             
             HStack{
                 Button(action: {
                     if self.dukePerson.firstName != "" && self.dukePerson.lastName != ""{
+                        if self.pickedImage != nil {
+                            self.dukePerson.imageString = self.pickedImage!.jpegData(compressionQuality: 0.1)!.base64EncodedString()
+                        }
                         self.didAddPerson(self.dukePerson)
                         self.isAdding = false
                     } else {

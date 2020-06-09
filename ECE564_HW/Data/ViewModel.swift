@@ -7,19 +7,22 @@
 //
 
 import Foundation
+import UIKit
 
 var initialDukePeople : [DukePerson] = [DukePerson]()
 
 func loadInitialData(){
     if let foundDukePeople = DukePeopleModel.loadDukePeople(){
         initialDukePeople = foundDukePeople
+        print("DEBUG: Save found, people loaded.")
     } else {
+        let nathanImageString = UIImage(named: "nathanProfPic")!.jpegData(compressionQuality: 0.1)!.base64EncodedString()
         initialDukePeople = [
-            DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", profPicName: "defaultProfPic", role: .Professor, program: .Unspecified, languages: "Swift, C, and C++", hobbies: "Biking, Hiking, Golf", hasAnimation: false),
-            DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", profPicName: "defaultProfPic", role: .TA, program: .Graduate, languages: "", hobbies: "", hasAnimation: false),
-            DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", profPicName: "nathanProfPic", role: .Student, program: .Undergraduate, languages: "Swift, C, and Mathematica", hobbies: "Backpacking, Playing Guitar, Reading the News", hasAnimation: true)
+            DukePerson(firstName: "Richard", lastName: "Telford", gender: "Male", whereFrom: "Chatham County, NC", imageString: "", role: .Professor, program: .Unspecified, languages: "Swift, C, and C++", hobbies: "Biking, Hiking, Golf", hasAnimation: false),
+            DukePerson(firstName: "Ananjaya", lastName: "Tyagi", gender: "Female", whereFrom: "Delhi, India", imageString: "", role: .TA, program: .Graduate, languages: "", hobbies: "", hasAnimation: false),
+            DukePerson(firstName: "Nathan", lastName: "Ostrowski", gender: "Male", whereFrom: "Charlotte, NC", imageString: nathanImageString, role: .Student, program: .Undergraduate, languages: "Swift, C, and Mathematica", hobbies: "Backpacking, Playing Guitar, Reading the News", hasAnimation: true)
         ]
-        
+        print("DEBUG: New people created, no save found.")
         let _ = DukePeopleModel.saveDukePeople(dukePeople: initialDukePeople)
     }
 }
