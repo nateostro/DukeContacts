@@ -21,7 +21,7 @@ struct AddView: View {
     var body: some View {
         
         VStack {
-            HStack(alignment: .top) {
+            HStack(alignment: .top){
                 Spacer()
                 Button(action: {
                     self.isAdding = false

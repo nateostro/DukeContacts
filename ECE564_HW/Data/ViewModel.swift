@@ -1,5 +1,5 @@
 //
-//  Actions.swift
+//  ViewModel.swift
 //  ECE564_HW
 //
 //  Created by Nathan Ostrowski on 5/22/20.

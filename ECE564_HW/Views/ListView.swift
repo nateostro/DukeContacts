@@ -91,13 +91,7 @@ struct PersonRow : View {
     var thisPersonIndex : Int
     
     var body : some View {
-        NavigationLink(destination:
-            DetailView(
-                dukePeopleModel: dukePeopleModel,
-                thisPersonIndex: thisPersonIndex,
-                copiedPerson: self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson,
-                editablePerson: self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson)
-            ){
+        NavigationLink(destination: DetailView(dukePeopleModel: dukePeopleModel, thisPersonIndex: thisPersonIndex)){
             HStack {
                 Image(uiImage: ((dukePerson.imageString == "" ?
                     UIImage(named: "defaultProfPic") :

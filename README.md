@@ -54,3 +54,4 @@ Implemented persistent storage––took some work to make it compliant with Swi
 
 Got a warning after I implemented shadows on the ListView and DetailView, but curiously after I reversed my changes the warning did not go away. I did some googling and it looks like it's a common warning given that SwiftUI is in beta, and it can pop up for any number of odd reasons. It didn't cause any issues with functionality or speed so I opted not to chase it any further.
 
+Added the currently selected image in the edit view with an intuitive "plus" image that brings up the custom image picker view. This only saves when the person is saved. 

@@ -46,7 +46,7 @@ struct InfoView: View {
                             }
                         }
                     }
-                }.background(Color.white.opacity(0))
+                }.background(Color.white.opacity(0.5))
                 Form {
                     Section(header: BasicInfoHeader()) {
                         HStack {

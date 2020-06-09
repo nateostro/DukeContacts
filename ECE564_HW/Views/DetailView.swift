@@ -11,8 +11,8 @@ import SwiftUI
 struct DetailView: View {
     @ObservedObject var dukePeopleModel : DukePeopleModel
     var thisPersonIndex : Int
-    @State var copiedPerson : DukePerson
-    @State var editablePerson : DukePerson
+    @State var copiedPerson : DukePerson = DukePerson()
+    @State var editablePerson : DukePerson = DukePerson()
     
     @State var isEditing : Bool = false
     @State var insufficientInformationAlert = false
@@ -68,12 +68,16 @@ struct DetailView: View {
                     .accentColor((isEditing ? .red : .blue))
                 })
             )
+        .onAppear {
+            self.copiedPerson = self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson
+            self.editablePerson = self.dukePeopleModel.dukePeople[self.thisPersonIndex].mutableCopy() as! DukePerson
+        }
         
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(dukePeopleModel: DukePeopleModel(), thisPersonIndex: 1, copiedPerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson, editablePerson: DukePeopleModel().dukePeople[1].mutableCopy() as! DukePerson, isAnimating: false)
+        DetailView(dukePeopleModel: DukePeopleModel(), thisPersonIndex: 1)
     }
 }
