@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E2ACD20248875D800474814 /* HW4_Instructions.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E2ACD1F248875D800474814 /* HW4_Instructions.md */; };
+		1E16F5C724A9456800BE4971 /* DukeContacts-EditScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E16F5C224A9456800BE4971 /* DukeContacts-EditScreen.png */; };
+		1E16F5C824A9456800BE4971 /* DukeContacts-DetailScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E16F5C324A9456800BE4971 /* DukeContacts-DetailScreen.png */; };
+		1E16F5CA24A9456800BE4971 /* DukeContacts-AddScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E16F5C524A9456800BE4971 /* DukeContacts-AddScreen.png */; };
+		1E16F5CB24A9456800BE4971 /* DukeContacts-ListScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E16F5C624A9456800BE4971 /* DukeContacts-ListScreen.png */; };
+		1E16F5CD24A946AF00BE4971 /* DukeContacts-GuitarAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1E16F5CC24A946AF00BE4971 /* DukeContacts-GuitarAnimation.gif */; };
 		1E34B28B2478B40F00ED4A85 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28A2478B40F00ED4A85 /* ListView.swift */; };
 		1E34B28D2478B53B00ED4A85 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28C2478B53B00ED4A85 /* Person.swift */; };
 		1E34B28F2478B69300ED4A85 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34B28E2478B69300ED4A85 /* ViewModel.swift */; };
@@ -25,8 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1E2ACD1F248875D800474814 /* HW4_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW4_Instructions.md; sourceTree = "<group>"; };
-		1E34B24D2478AECD00ED4A85 /* HW2_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW2_Instructions.md; sourceTree = "<group>"; };
+		1E16F5C224A9456800BE4971 /* DukeContacts-EditScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DukeContacts-EditScreen.png"; sourceTree = "<group>"; };
+		1E16F5C324A9456800BE4971 /* DukeContacts-DetailScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DukeContacts-DetailScreen.png"; sourceTree = "<group>"; };
+		1E16F5C524A9456800BE4971 /* DukeContacts-AddScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DukeContacts-AddScreen.png"; sourceTree = "<group>"; };
+		1E16F5C624A9456800BE4971 /* DukeContacts-ListScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DukeContacts-ListScreen.png"; sourceTree = "<group>"; };
+		1E16F5CC24A946AF00BE4971 /* DukeContacts-GuitarAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "DukeContacts-GuitarAnimation.gif"; sourceTree = "<group>"; };
 		1E34B28A2478B40F00ED4A85 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		1E34B28C2478B53B00ED4A85 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		1E34B28E2478B69300ED4A85 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -34,10 +41,8 @@
 		1E34B2942478B79400ED4A85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1E3F1879247C59CE0096BD6D /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		1EB83452248F15F600073B43 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		1ECFD15C2481C9C6001DD09C /* HW3_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW3_Instructions.md; sourceTree = "<group>"; };
 		1ECFD15D2482DDD1001DD09C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		1ECFD15F248310AB001DD09C /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
-		1EECB94C246E3B970088BF05 /* HW1_Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HW1_Instructions.md; sourceTree = "<group>"; };
 		1EFB5E4F24857D3F0018EA50 /* D_Chord.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = D_Chord.mp3; sourceTree = "<group>"; };
 		8734815C2469DEE8000B9A79 /* ECE564_HW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECE564_HW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8734815F2469DEE8000B9A79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +66,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E16F5BB24A93C5300BE4971 /* DemoImages */ = {
+			isa = PBXGroup;
+			children = (
+				1E16F5C524A9456800BE4971 /* DukeContacts-AddScreen.png */,
+				1E16F5C324A9456800BE4971 /* DukeContacts-DetailScreen.png */,
+				1E16F5C224A9456800BE4971 /* DukeContacts-EditScreen.png */,
+				1E16F5C624A9456800BE4971 /* DukeContacts-ListScreen.png */,
+				1E16F5CC24A946AF00BE4971 /* DukeContacts-GuitarAnimation.gif */,
+			);
+			path = DemoImages;
+			sourceTree = "<group>";
+		};
 		1E34B2902478B74300ED4A85 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,21 +101,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		1EECB94D246E3BA60088BF05 /* HW Instructions */ = {
-			isa = PBXGroup;
-			children = (
-				1EECB94C246E3B970088BF05 /* HW1_Instructions.md */,
-				1E34B24D2478AECD00ED4A85 /* HW2_Instructions.md */,
-				1ECFD15C2481C9C6001DD09C /* HW3_Instructions.md */,
-				1E2ACD1F248875D800474814 /* HW4_Instructions.md */,
-			);
-			path = "HW Instructions";
-			sourceTree = "<group>";
-		};
 		873481532469DEE8000B9A79 = {
 			isa = PBXGroup;
 			children = (
 				873481732469DFE1000B9A79 /* README.md */,
+				1E16F5BB24A93C5300BE4971 /* DemoImages */,
 				873481742469E31C000B9A79 /* Practice.playground */,
 				873481752469E43A000B9A79 /* HW1.playground */,
 				8734815E2469DEE8000B9A79 /* ECE564_HW */,
@@ -125,7 +132,6 @@
 				873481682469DEE9000B9A79 /* Assets.xcassets */,
 				8734816A2469DEE9000B9A79 /* LaunchScreen.storyboard */,
 				8734816D2469DEE9000B9A79 /* Info.plist */,
-				1EECB94D246E3BA60088BF05 /* HW Instructions */,
 			);
 			path = ECE564_HW;
 			sourceTree = "<group>";
@@ -188,10 +194,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E16F5CA24A9456800BE4971 /* DukeContacts-AddScreen.png in Resources */,
 				8734816C2469DEE9000B9A79 /* LaunchScreen.storyboard in Resources */,
-				1E2ACD20248875D800474814 /* HW4_Instructions.md in Resources */,
+				1E16F5CD24A946AF00BE4971 /* DukeContacts-GuitarAnimation.gif in Resources */,
+				1E16F5C724A9456800BE4971 /* DukeContacts-EditScreen.png in Resources */,
 				873481692469DEE9000B9A79 /* Assets.xcassets in Resources */,
+				1E16F5C824A9456800BE4971 /* DukeContacts-DetailScreen.png in Resources */,
 				1EFB5E5024857D3F0018EA50 /* D_Chord.mp3 in Resources */,
+				1E16F5CB24A9456800BE4971 /* DukeContacts-ListScreen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
